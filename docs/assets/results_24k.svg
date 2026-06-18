@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="720" viewBox="0 0 980 720" role="img" aria-labelledby="title desc">
+  <title id="title">SDPCodec 24 kHz Results</title>
+  <desc id="desc">Compact comparison of SDP-Codec-24-S against baselines on objective, subjective, and speaker-probing 24 kHz metrics.</desc>
+  <rect width="980" height="720" fill="#ffffff"/>
+  <style>
+    .title { font: 700 24px Arial, sans-serif; fill: #111827; }
+    .subtitle { font: 14px Arial, sans-serif; fill: #4b5563; }
+    .panel-title { font: 700 16px Arial, sans-serif; fill: #111827; }
+    .label { font: 13px Arial, sans-serif; fill: #374151; }
+    .value { font: 700 13px Arial, sans-serif; fill: #111827; }
+    .axis { stroke: #d1d5db; stroke-width: 1; }
+    .grid { stroke: #eef2f7; stroke-width: 1; }
+    .lscodec { fill: #94a3b8; }
+    .bicodec { fill: #f59e0b; }
+    .vec2wav { fill: #38bdf8; }
+    .vevo { fill: #a78bfa; }
+    .sdp { fill: #2563eb; }
+    .note { font: 12px Arial, sans-serif; fill: #6b7280; }
+  </style>
+
+  <text class="title" x="34" y="42">24 kHz LibriTTS Results</text>
+  <text class="subtitle" x="34" y="66">Main reproduction: SDP-Codec-24-S, 0.45 kbps, VQ-Wav2Vec continuous features + RVQ300</text>
+
+  <rect x="30" y="92" width="445" height="220" rx="10" fill="#f8fafc" stroke="#e5e7eb"/>
+  <text class="panel-title" x="54" y="124">Objective: Reconstruction</text>
+  <text class="note" x="54" y="146">Arrows indicate preferred direction.</text>
+
+  <line class="axis" x1="172" y1="176" x2="430" y2="176"/>
+  <line class="axis" x1="172" y1="226" x2="430" y2="226"/>
+  <line class="axis" x1="172" y1="276" x2="430" y2="276"/>
+  <line class="grid" x1="300" y1="164" x2="300" y2="288"/>
+
+  <text class="label" x="54" y="181">STOI ↑</text>
+  <rect class="lscodec" x="172" y="160" width="193" height="16" rx="4"/>
+  <rect class="sdp" x="172" y="180" width="226" height="16" rx="4"/>
+  <text class="value" x="374" y="173">0.7511</text>
+  <text class="value" x="407" y="193">0.8798</text>
+
+  <text class="label" x="54" y="231">F0 corr. ↑</text>
+  <rect class="lscodec" x="172" y="210" width="160" height="16" rx="4"/>
+  <rect class="sdp" x="172" y="230" width="167" height="16" rx="4"/>
+  <text class="value" x="342" y="223">0.6245</text>
+  <text class="value" x="349" y="243">0.6522</text>
+
+  <text class="label" x="54" y="281">WER ↓</text>
+  <rect class="lscodec" x="172" y="260" width="194" height="16" rx="4"/>
+  <rect class="sdp" x="172" y="280" width="188" height="16" rx="4"/>
+  <text class="value" x="376" y="273">5.71</text>
+  <text class="value" x="370" y="293">5.54</text>
+
+  <rect x="505" y="92" width="445" height="220" rx="10" fill="#f8fafc" stroke="#e5e7eb"/>
+  <text class="panel-title" x="529" y="124">Objective: Zero-Shot VC</text>
+  <text class="note" x="529" y="146">Arrows indicate preferred direction.</text>
+
+  <line class="axis" x1="652" y1="176" x2="910" y2="176"/>
+  <line class="axis" x1="652" y1="226" x2="910" y2="226"/>
+  <line class="axis" x1="652" y1="276" x2="910" y2="276"/>
+  <line class="grid" x1="780" y1="164" x2="780" y2="288"/>
+
+  <text class="label" x="529" y="181">SECS ↑</text>
+  <rect class="lscodec" x="652" y="160" width="203" height="16" rx="4"/>
+  <rect class="sdp" x="652" y="180" width="207" height="16" rx="4"/>
+  <text class="value" x="864" y="173">0.7965</text>
+  <text class="value" x="868" y="193">0.8133</text>
+
+  <text class="label" x="529" y="231">F0 corr. ↑</text>
+  <rect class="lscodec" x="652" y="210" width="137" height="16" rx="4"/>
+  <rect class="sdp" x="652" y="230" width="157" height="16" rx="4"/>
+  <text class="value" x="799" y="223">0.5357</text>
+  <text class="value" x="819" y="243">0.6162</text>
+
+  <text class="label" x="529" y="281">UTMOS ↑</text>
+  <rect class="lscodec" x="652" y="260" width="202" height="16" rx="4"/>
+  <rect class="sdp" x="652" y="280" width="207" height="16" rx="4"/>
+  <text class="value" x="864" y="273">3.9034</text>
+  <text class="value" x="869" y="293">4.0055</text>
+
+  <rect x="30" y="335" width="920" height="155" rx="10" fill="#f8fafc" stroke="#e5e7eb"/>
+  <text class="panel-title" x="54" y="367">Subjective Voice Conversion MOS</text>
+  <text class="note" x="54" y="389">Mean +/- 95% confidence interval. Arrows indicate preferred direction.</text>
+
+  <line class="axis" x1="132" y1="425" x2="425" y2="425"/>
+  <line class="axis" x1="560" y1="425" x2="853" y2="425"/>
+  <text class="label" x="54" y="430">NMOS ↑</text>
+  <text class="label" x="482" y="430">SMOS ↑</text>
+
+  <rect class="lscodec" x="132" y="407" width="220" height="16" rx="4"/>
+  <rect class="vec2wav" x="132" y="431" width="215" height="16" rx="4"/>
+  <rect class="sdp" x="132" y="455" width="228" height="16" rx="4"/>
+  <text class="value" x="361" y="420">3.76</text>
+  <text class="value" x="356" y="444">3.68</text>
+  <text class="value" x="369" y="468">3.89</text>
+
+  <rect class="lscodec" x="560" y="407" width="169" height="16" rx="4"/>
+  <rect class="vec2wav" x="560" y="431" width="190" height="16" rx="4"/>
+  <rect class="sdp" x="560" y="455" width="231" height="16" rx="4"/>
+  <text class="value" x="738" y="420">2.34</text>
+  <text class="value" x="759" y="444">2.63</text>
+  <text class="value" x="800" y="468">3.20</text>
+
+  <rect x="30" y="510" width="920" height="135" rx="10" fill="#f8fafc" stroke="#e5e7eb"/>
+  <text class="panel-title" x="54" y="542">Speaker Probing Accuracy</text>
+  <text class="note" x="54" y="564">MLP speaker classifier accuracy on local tokens. Arrows indicate preferred direction.</text>
+
+  <line class="axis" x1="230" y1="597" x2="870" y2="597"/>
+  <text class="label" x="54" y="602">Accuracy (%) ↓</text>
+  <text class="label" x="150" y="592">BiCodec</text>
+  <text class="label" x="150" y="616">LSCodec</text>
+  <text class="label" x="150" y="640">SDP-Codec</text>
+  <rect class="bicodec" x="230" y="579" width="256" height="16" rx="4"/>
+  <rect class="lscodec" x="230" y="603" width="441" height="16" rx="4"/>
+  <rect class="sdp" x="230" y="627" width="195" height="16" rx="4"/>
+  <text class="value" x="496" y="592">9.00</text>
+  <text class="value" x="681" y="616">15.5</text>
+  <text class="value" x="435" y="640">6.87</text>
+
+  <rect class="bicodec" x="34" y="682" width="14" height="14" rx="3"/>
+  <text class="label" x="56" y="694">BiCodec</text>
+  <rect class="lscodec" x="128" y="682" width="14" height="14" rx="3"/>
+  <text class="label" x="150" y="694">LSCodec</text>
+  <rect class="vec2wav" x="222" y="682" width="14" height="14" rx="3"/>
+  <text class="label" x="244" y="694">vec2wav2.0</text>
+  <rect class="sdp" x="366" y="682" width="14" height="14" rx="3"/>
+  <text class="label" x="388" y="694">SDP-Codec-24-S</text>
+  <text class="note" x="666" y="694">Numbers from paper Tables 1, MOS, and probing.</text>
+</svg>

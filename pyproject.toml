@@ -1,0 +1,22 @@
+[project]
+name = "sdpcodec"
+version = "0.1.0"
+description = "Official SDPCodec implementation for training and inference."
+requires-python = ">=3.10"
+
+[tool.setuptools]
+py-modules = ["utils"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+  "sdpcodec*",
+  "ptl*",
+  "vq*",
+  "module*",
+  "criterions*",
+  "common*",
+  "metrics*",
+  "pretrained_models*",
+  "etc*",
+]

@@ -1,0 +1,17 @@
+torch
+torchaudio
+pytorch-lightning
+hydra-core
+omegaconf
+transformers
+datasets
+librosa
+soundfile
+numpy
+einops
+local_attention
+torchmetrics
+wandb
+jiwer
+matplotlib
+termcolor
