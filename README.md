@@ -80,6 +80,20 @@ Resume from a checkpoint:
 python -m sdpcodec.train ckpt=/path/to/last.ckpt
 ```
 
+## Pretrained Checkpoints
+
+| Model | Config | Sample rate | Bitrate | Quantizer | Training data | Download |
+| --- | --- | --- | --- | --- | --- | --- |
+| SDPCodec-24-S | `configs/sdpcodec_vqw2v_rvq300.yaml` | 24 kHz | ~0.41 kbps | RVQ, codebook 300 | LibriTTS | [Google Drive](https://drive.google.com/file/d/1I-s2dsjBckb2kLf8Eu0Ncp1pcOWj-gPF/view?usp=share_link) |
+
+SDPCodec-24-S is the main 24 kHz VQ-Wav2Vec reproduction model (joint content+F0
+tokens at 50 Hz). Download the checkpoint, place it anywhere (for example
+`checkpoints/sdpcodec_24s.ckpt`), and pass its path to inference or test with
+`--checkpoint` / `ckpt=`. The `configs/sdpcodec_vqw2v_rvq300.yaml` config matches
+this checkpoint (sr 24000, RVQ codebook 300, VQ-Wav2Vec content encoder, WavLM
+speaker encoder). See [docs/pretrained_assets.md](docs/pretrained_assets.md) for
+the WavLM Large and VQ-Wav2Vec k-means weights the model also requires.
+
 ## Inference
 
 Reconstruct one waveform:

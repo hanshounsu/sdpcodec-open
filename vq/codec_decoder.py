@@ -44,7 +44,6 @@ class CodecDecoder(nn.Module):
                  f0_every=1,
                  f0_width_list=None,
                  f0_speaker_condition=False,
-                 legacy_f0_speaker_condition_gate=False,
                  use_stage_speaker_film=True,
                  use_mhca=False,
                  spk_cond_use_concat=False,
@@ -82,7 +81,6 @@ class CodecDecoder(nn.Module):
         self.use_mhca = use_mhca
         self.spk_cond_use_concat = bool(spk_cond_use_concat)
         self.use_stage_speaker_film = bool(use_stage_speaker_film)
-        self.legacy_f0_speaker_condition_gate = bool(legacy_f0_speaker_condition_gate)
         self.mhca_key_dim = mhca_key_dim
         self.mhca_start_layer = mhca_start_layer
         self.mhca_end_layer = mhca_end_layer
@@ -198,22 +196,12 @@ class CodecDecoder(nn.Module):
         for i, stride in enumerate(up_ratios):
             input_dim = channels // 2**i
             output_dim = channels // 2 ** (i + 1)
-            # In the default decoder path, the legacy in-block speaker-conditioned
-            # path now maps to explicit concat-style speaker conditioning only.
-            # Old checkpoints used speaker_condition itself as the in-block gate.
-            if self.legacy_f0_speaker_condition_gate:
-                block_speaker_condition = bool(speaker_condition and self.spk_block_enabled[i])
-            else:
-                block_speaker_condition = bool(self.spk_concat_block_enabled[i])
+            # Per-block speaker conditioning (MHCA speaker path), and
+            # speaker-modulated (joint speaker+F0 time-varying) F0 conditioning
+            # wherever F0 conditioning is active.
+            block_speaker_condition = bool(speaker_condition and self.spk_block_enabled[i])
             block_f0_condition = bool(self.f0_condition and self.f0_block_enabled[i])
-            # Default decoder now uses the joint speaker+f0 path only when
-            # speaker concat is explicitly enabled. Old checkpoints were
-            # trained with f0_speaker_condition as the direct gate; keep that
-            # behavior opt-in for strict legacy inference/resume compatibility.
-            if self.legacy_f0_speaker_condition_gate:
-                block_f0_speaker_condition = bool(f0_speaker_condition and block_f0_condition)
-            else:
-                block_f0_speaker_condition = bool(block_speaker_condition and block_f0_condition)
+            block_f0_speaker_condition = bool(f0_speaker_condition and block_f0_condition)
             layers += [DecoderBlock(input_dim, output_dim, stride, dilations, block_speaker_condition, condition_dim=condition_dim, f0_condition=block_f0_condition,
                                     f0_condition_dim=self.f0_width_list[i + (len(self.f0_width_list) - len(self.up_ratios))] if block_f0_condition else None,
                                     f0_speaker_condition=block_f0_speaker_condition,
@@ -222,10 +210,7 @@ class CodecDecoder(nn.Module):
                                     use_split_condition_optimization=self.use_split_condition_optimization,
                                     )]
 
-        if self.legacy_f0_speaker_condition_gate:
-            final_speaker_condition = bool(speaker_condition and self.spk_block_enabled and self.spk_block_enabled[-1])
-        else:
-            final_speaker_condition = bool(self.spk_concat_block_enabled and self.spk_concat_block_enabled[-1])
+        final_speaker_condition = bool(speaker_condition and self.spk_block_enabled and self.spk_block_enabled[-1])
         activation = build_codec_activation(
             dim=output_dim,
             activation_type=activation_type,

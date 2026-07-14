@@ -83,7 +83,10 @@ class ProjectedSpeakerConcatFuser(nn.Module):
 
     def forward(self, x: torch.Tensor, condition: torch.Tensor) -> torch.Tensor:
         projected = self.condition_proj(condition)
-        weight = _weight_norm(self.merge_conv.weight_v, self.merge_conv.weight_g, 0)
+        # Use .weight so this works whether weight_norm is active (the hook recomputes
+        # it from weight_v/weight_g on access) or has been removed for inference
+        # (folded plain weight). Accessing weight_v directly crashes after removal.
+        weight = self.merge_conv.weight
         bias = self.merge_conv.bias
         x_out = F.conv1d(x, weight[:, :self.input_dim, :], bias=bias)
         cond_out = F.linear(projected, weight[:, self.input_dim:, 0]).unsqueeze(-1)

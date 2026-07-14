@@ -193,7 +193,13 @@ class SdpCodecLightningModule(pl.LightningModule):
         super().__init__()
         self.cfg = cfg
         self.use_unnormf0_mse_loss = getattr(self.cfg.model.f0_codec, 'use_unnormf0_mse_loss', False)
-        self.ocwd = hydra.utils.get_original_cwd()
+        try:
+            self.ocwd = hydra.utils.get_original_cwd()
+        except ValueError:
+            # Running outside a @hydra.main context (e.g. sdpcodec.infer, which
+            # loads the config via OmegaConf.load). ocwd is only used to resolve
+            # relative pretrained-weight paths, so the current cwd is the right base.
+            self.ocwd = os.getcwd()
         self.construct_model()
         self._train_weight_norm_strip_targets = tuple(getattr(self.cfg.train, 'remove_weight_norm_from_modules', []))
         if self._train_weight_norm_strip_targets:
@@ -761,7 +767,6 @@ class SdpCodecLightningModule(pl.LightningModule):
                     f0_every=decoder_f0_cond_cfg.every,
                     f0_width_list=f0_width_list,
                     f0_speaker_condition=deccfg.get('f0_speaker_condition', False),
-                    legacy_f0_speaker_condition_gate=deccfg.get('legacy_f0_speaker_condition_gate', False),
                     use_stage_speaker_film=decoder_use_stage_speaker_film,
                     
                     use_mhca=decoder_spk_cond_cfg.use_mhca,
